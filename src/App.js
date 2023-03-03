@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useState } from 'react'
+import Comp from './contextapi/Comp'
+import Toggle from './contextapi/Toggle'
 
-function App() {
+export const Theme = createContext(null);  // context api
+
+
+const App = () => {
+  
+  const [first, setfirst] = useState(true) // use state 
+  
+  function Hello () {
+    setfirst(!first)
+  }
   return (
+    <>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <h1> I have Changed theme to {first ? "dark":"light"}</h1>
+
+    <Theme.Provider value={first} >
+    <Comp Hello={Hello}/>
+    <Toggle Hello={Hello}/>
+
+    </Theme.Provider>
+
+
     </div>
-  );
+    </>
+  )
 }
 
-export default App;
+export default App
